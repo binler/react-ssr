@@ -21,7 +21,7 @@ Build server: `yarn run server:prod`
 - Server side rendering.
 - Redux, redux saga.
 - ImmutableJS.
-- Code splitting (coming soon).
+- Code splitting.
 - CSS module (coming soon).
 - Service worker.
 - Unit testing.

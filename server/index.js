@@ -1,4 +1,5 @@
 import express from 'express';
+import Loadable from 'react-loadable';
 
 import serverRenderer from './middleware/renderer';
 
@@ -12,10 +13,12 @@ app.use('/static', express.static(path.join(__dirname, '..', 'build', 'static'))
 
 app.get('*', serverRenderer);
 
-app.listen(PORT, (error) => {
-  if (error) {
-    return console.log('something bad happened', error);
-  }
+Loadable.preloadAll().then(() => {
+  app.listen(PORT, (error) => {
+    if (error) {
+      return console.log('something bad happened', error);
+    }
 
-  console.log("listening on " + PORT + "...");
+    console.log("listening on " + PORT + "...");
+  });
 });

@@ -1,8 +1,17 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
+import Loadable from 'react-loadable';
 
-import Home from "../pages/Home";
-import User from "../pages/User";
+const Home = Loadable({
+  loader: () => import('../pages/Home'),
+  loading: () => <div>loading...</div>,
+  modules: ['home']
+});
+const User = Loadable({
+  loader: () => import('../pages/User'),
+  loading: () => <div>loading...</div>,
+  modules: ['user']
+});
 
 const routesConfig = [
   {
