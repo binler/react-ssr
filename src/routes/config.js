@@ -2,13 +2,18 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Loadable from 'react-loadable';
 
+/**
+ * This comment bellow is very important
+ * it's magic between server side render and client render
+ */
+
 const Home = Loadable({
-  loader: () => import('../pages/Home'),
+  loader: () => import(/* webpackChunkName: "home" */ '../pages/Home'),
   loading: () => <div>loading...</div>,
   modules: ['home']
 });
 const User = Loadable({
-  loader: () => import('../pages/User'),
+  loader: () => import(/* webpackChunkName: "user" */ '../pages/User'),
   loading: () => <div>loading...</div>,
   modules: ['user']
 });

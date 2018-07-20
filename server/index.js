@@ -8,10 +8,16 @@ const path = require('path');
 const PORT = 3000;
 
 const app = express();
+const router = express.Router();
 
-app.use('/static', express.static(path.join(__dirname, '..', 'build', 'static')));
+router.use('/static', express.static(
+  path.join(__dirname, '..', 'build', 'static'),
+  { maxAge: '30d' },
+));
 
-app.get('*', serverRenderer);
+router.use('*', serverRenderer);
+
+app.use(router);
 
 Loadable.preloadAll().then(() => {
   app.listen(PORT, (error) => {
