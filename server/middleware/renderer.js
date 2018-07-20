@@ -41,16 +41,18 @@ export default (req, res) => {
     const extraChunks = extractAssets(manifest, modules)
       .map(c => `<script type="text/javascript" src="/${c}"></script>`);
 
-    const response = htmlData.replace(
-      '<div id="root"></div>',
-      `<div id="root">${html}</div>`
-    )
+    const response = htmlData
       .replace(
+        '<div id="root"></div>',
+        '<div id="root"></div><script type="text/javascript">window.__PRELOAD_STATE__ = '+JSON.stringify(reduxStore.configureStore().getState())+'</script>'
+      ).replace(
         '</body>',
         extraChunks.join('') + '</body>'
+      )
+      .replace(
+        '<div id="root"></div>',
+        `<div id="root">${html}</div>`
       );
-
-    console.log(response);
 
     return res.send(response);
   });
