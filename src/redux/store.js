@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware, compose} from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, {END} from 'redux-saga';
 import logger from 'redux-logger';
 import createHistory from 'history/createMemoryHistory';
 import {routerMiddleware} from 'react-router-redux';
@@ -15,7 +15,7 @@ const store = (path = '/') => {
   let initialState = {};
   let middleware = [sagaMiddleWare];
 
-  if (process.env.NODE_ENV === 'dev') {
+  if (process.env.NODE_ENV === 'development') {
     middleware.push(logger);
   }
 
@@ -36,7 +36,10 @@ const store = (path = '/') => {
   sagaMiddleWare.run(rootSaga);
   return {
     configureStore: () => storeWithMiddleware,
-    history
+    history,
+    runSaga: sagaMiddleWare.run,
+    close: () => storeWithMiddleware.dispatch(END),
+    storeWithMiddleware
   };
 
 };
