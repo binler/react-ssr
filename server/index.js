@@ -15,7 +15,7 @@ router.use('/static', express.static(
   { maxAge: '30d' },
 ));
 
-router.use('*', serverRenderer);
+router.get('*', serverRenderer);
 
 app.use(router);
 

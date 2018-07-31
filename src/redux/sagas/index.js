@@ -1,9 +1,9 @@
 import {all} from 'redux-saga/effects';
 
-import user from './user';
+import userSaga from '../../pages/User/user.sagas';
 
 export default function* () {
   yield all([
-    user(),
+    userSaga(),
   ]);
 }
