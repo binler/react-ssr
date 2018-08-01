@@ -15,15 +15,28 @@ router.use('/static', express.static(
   { maxAge: '30d' },
 ));
 
-router.use('/service-worker.js', express.static(
-  path.join(__dirname, '..', 'build', 'service-worker.js'),
+router.use('/static/imgs', express.static(
+  path.join(__dirname, '..', 'build', 'static', 'imgs'),
   { maxAge: '30d' },
 ));
 
-router.use('/manifest.json', express.static(
-  path.join(__dirname, '..', 'build', 'manifest.json'),
+router.use('/static/css', express.static(
+  path.join(__dirname, '..', 'build', 'static', 'css'),
   { maxAge: '30d' },
 ));
+
+router.use('/static/js', express.static(
+  path.join(__dirname, '..', 'build', 'static', 'js'),
+  { maxAge: '30d' },
+));
+
+router.get('/service-worker.js', (req, res) => {
+  return res.sendFile(path.join(__dirname, '..', 'build', 'service-worker.js'));
+});
+
+router.get('/manifest.json', (req, res) => {
+  return res.sendFile(path.join(__dirname, '..', 'build', 'manifest.json'));
+});
 
 router.get('*', serverRenderer);
 
