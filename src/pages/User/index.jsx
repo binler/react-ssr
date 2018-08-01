@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
 class User extends React.Component {
 
   componentDidMount() {
-    this.props.getData();
+    this.props.getData(+this.props.match.params.id);
   }
 
   render() {

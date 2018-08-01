@@ -3,6 +3,7 @@ import Loadable from 'react-loadable';
 import {renderRoutes} from 'react-router-config';
 
 import Loading from '../components/Loading';
+import {getUser} from "../pages/User/user.actions";
 
 /**
  * This comment bellow is very important
@@ -20,6 +21,12 @@ const User = Loadable({
   modules: ['user']
 });
 
+/**
+ *
+ * @type {*[]}
+ * actions must be an array, each item must be a function.
+ * It's call to api that you want to pre-fetch on server side.
+ */
 const routesConfig = [
   {
     path: '/',
@@ -27,9 +34,11 @@ const routesConfig = [
     exact: true,
   },
   {
-    path: '/user',
+    path: '/user/:id',
     component: User,
     exact: true,
+    actions: [getUser],
+    bindRouteParamsToAction: [true]
   }
 ];
 
