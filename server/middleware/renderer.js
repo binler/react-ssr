@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {ConnectedRouter} from 'react-router-redux';
+import {matchRoutes} from 'react-router-config';
 import Loadable from 'react-loadable';
 import {Provider} from 'react-redux';
 import {store} from "../../src/redux/store";
 import ServerRouter from "../../src/routes/server";
 import manifest from '../../build/asset-manifest.json';
 import sagas from '../../src/redux/sagas/index';
+import {routesConfig} from "../../src/routes/config";
 
 const path = require("path");
 const fs = require("fs");
@@ -23,7 +25,9 @@ export default (req, res) => {
     }
     const requestPath = req.path;
     const reduxStore = store(requestPath);
-    let context = {};
+    let context = {
+      isServer: true,
+    };
     const node = (
       <Provider store={reduxStore.configureStore()}>
         <ConnectedRouter history={reduxStore.history}>
@@ -60,7 +64,24 @@ export default (req, res) => {
         );
       res.send(response);
     }).catch((error) => console.log('need response error page: ', error));
-
+    matchRoutes(routesConfig, req.url).map(({route, match}) => {
+      if (match && Array.isArray(route.actions)) {
+        /**
+         * If force bind params from routes to action
+         */
+        if (Array.isArray(route.bindRouteParamsToAction)) {
+          route.bindRouteParamsToAction.map((condition, i) => {
+            if (condition) {
+              reduxStore.dispatch(route.actions[i].apply(null, Object.values(match.params)));
+            } else {
+              reduxStore.dispatch(route.actions[i]());
+            }
+          });
+        } else {
+          route.actions.map((action) => reduxStore.dispatch(action()));
+        }
+      }
+    });
     ReactDOMServer.renderToString(node);
     reduxStore.close();
   });

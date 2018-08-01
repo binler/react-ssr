@@ -7,6 +7,13 @@ class HttpService {
   constructor() {
     this.http = axios.create({});
   }
+  
+  handleResponse(response) {
+    if (response.status >= 200 && response.status < 400) {
+      return Promise.resolve(response.data || {});
+    }
+    return Promise.reject(response.data);
+  }
 
   /**
    *
@@ -14,7 +21,9 @@ class HttpService {
    * @param config is config of axios
    */
   get(url, config) {
-    return this.http.get(url, config);
+    return this.http.get(url, config)
+      .then(response => this.handleResponse(response))
+      .catch((error) => Promise.reject(error));
   }
 
   /**
@@ -23,7 +32,9 @@ class HttpService {
    * @param config
    */
   post(url, config) {
-    return this.http.post(url, config);
+    return this.http.post(url, config)
+      .then(response => this.handleResponse(response))
+      .catch((error) => Promise.reject(error));
   }
 }
 

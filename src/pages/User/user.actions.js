@@ -1,8 +1,9 @@
 import UserConstants from "./user.constants";
 
-export function getUser() {
+export function getUser(id) {
   return {
-    type: UserConstants.REQUEST_DATA
+    type: UserConstants.REQUEST_DATA,
+    id,
   }
 }
 

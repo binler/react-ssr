@@ -39,7 +39,8 @@ const store = (path = '/') => {
     history,
     runSaga: sagaMiddleWare.run,
     close: () => storeWithMiddleware.dispatch(END),
-    storeWithMiddleware
+    storeWithMiddleware,
+    dispatch: storeWithMiddleware.dispatch
   };
 
 };
