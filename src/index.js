@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 window.onload = () => {
   Loadable.preloadReady().then(() => {
     ReactDOM.hydrate(<App />, document.getElementById('root'));
-    registerServiceWorker();
   });
 };
+
+registerServiceWorker();

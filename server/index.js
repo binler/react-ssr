@@ -15,6 +15,16 @@ router.use('/static', express.static(
   { maxAge: '30d' },
 ));
 
+router.use('/service-worker.js', express.static(
+  path.join(__dirname, '..', 'build', 'service-worker.js'),
+  { maxAge: '30d' },
+));
+
+router.use('/manifest.json', express.static(
+  path.join(__dirname, '..', 'build', 'manifest.json'),
+  { maxAge: '30d' },
+));
+
 router.get('*', serverRenderer);
 
 app.use(router);

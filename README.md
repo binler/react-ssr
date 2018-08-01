@@ -2,6 +2,8 @@
 
 A my server side rendering project using ReactJs.
 
+![](docs/screenshot.png?raw=true)
+
 ## How to development?
 
 1. Pull this project.
@@ -22,7 +24,7 @@ Build server: `yarn run server:prod`
 - Redux, redux saga.
 - Code splitting.
 - CSS module (scss).
-- Service worker.
+- Progressive web app.
 - Unit testing.
 
 ## License
