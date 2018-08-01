@@ -6,7 +6,7 @@ import Loadable from 'react-loadable';
 import {Provider} from 'react-redux';
 import {store} from "../../src/redux/store";
 import ServerRouter from "../../src/routes/server";
-import manifest from '../../build/asset-manifest.json';
+import manifest from '../../build/static/asset-manifest.json';
 import sagas from '../../src/redux/sagas/index';
 import {routesConfig} from "../../src/routes/config";
 
