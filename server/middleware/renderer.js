@@ -9,6 +9,7 @@ import ServerRouter from "../../src/routes/server";
 import manifest from '../../build/static/asset-manifest.json';
 import sagas from '../../src/redux/sagas/index';
 import {routesConfig} from "../../src/routes/config";
+import {Helmet} from 'react-helmet';
 
 const path = require("path");
 const fs = require("fs");
@@ -45,12 +46,18 @@ export default (req, res) => {
           {node}
         </Loadable.Capture>
       );
+      const helmet = Helmet.renderStatic();
+      const headMarkup = `${helmet.title.toString()}${helmet.meta.toString()}`;
       const extractAssets = (assets, chunks) => Object.keys(assets)
         .filter(asset => chunks.indexOf(asset.replace('.js', '')) > -1)
         .map(k => assets[k]);
       const extraChunks = extractAssets(manifest, modules)
         .map(c => `<script type="text/javascript" src="/${c}"></script>`);
       const response = htmlData
+        .replace(
+          '<head>',
+          '<head>' + headMarkup
+        )
         .replace(
           '<div id="root"></div>',
           '<div id="root"></div><script type="text/javascript">window.__PRELOAD_STATE__ = ' + JSON.stringify(reduxStore.storeWithMiddleware.getState()) + '</script>'
@@ -63,7 +70,8 @@ export default (req, res) => {
           `<div id="root">${html}</div>`
         );
       res.send(response);
-    }).catch((error) => console.log('need response error page: ', error));
+    })
+      .catch((error) => console.log('need response error page: ', error));
     matchRoutes(routesConfig, req.url).map(({route, match}) => {
       if (match && Array.isArray(route.actions)) {
         /**
