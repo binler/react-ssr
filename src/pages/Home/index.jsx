@@ -8,7 +8,7 @@ class Home extends React.Component {
     return (
       <div>
         <h1 className={styles.button}>This is home page</h1>
-        <h2>HAHAHAH</h2>
+        <h2>This content change 2</h2>
         <Link to={'/user'}>User</Link>
       </div>
     )
