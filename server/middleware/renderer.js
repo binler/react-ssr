@@ -39,7 +39,6 @@ export default (req, res) => {
         </ConnectedRouter>
       </Provider>
     );
-
     reduxStore.runSaga(sagas).done.then(() => {
       const html = ReactDOMServer.renderToString(
         <Loadable.Capture report={m => modules.push(m)}>
@@ -90,7 +89,6 @@ export default (req, res) => {
         }
       }
     });
-    ReactDOMServer.renderToString(node);
     reduxStore.close();
   });
 }
