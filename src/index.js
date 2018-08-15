@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import App from './routes/client';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker, { unregister } from './registerServiceWorker';
 
 window.onload = () => {
   Loadable.preloadReady().then(() => {
@@ -10,4 +10,11 @@ window.onload = () => {
   });
 };
 
-registerServiceWorker();
+/**
+ * Register service worker
+ */
+if (process.env.NODE_ENV === 'development') {
+  unregister();
+} else {
+  registerServiceWorker();
+}
