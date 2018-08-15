@@ -45,9 +45,8 @@ app.use(router);
 Loadable.preloadAll().then(() => {
   app.listen(PORT, (error) => {
     if (error) {
-      return console.log('something bad happened', error);
+      return console.log('Something went wrong!!!', error);
     }
-
-    console.log("listening on " + PORT + "...");
+    console.log('\x1b[32m%s\x1b[0m%s\x1b[31m%s\x1b[0m', '[' + (process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV') + ']',' server listening on port: ', PORT);
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { hydrate, render } from 'react-dom';
 import Loadable from 'react-loadable';
 import App from './routes/client';
-import registerServiceWorker, { unregister } from './registerServiceWorker';
+// import registerServiceWorker, { unregister } from './registerServiceWorker';
 
 Loadable.preloadReady().then(() => {
   (!!module.hot ? render : hydrate)(<App />, document.getElementById('root'));
@@ -20,8 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
 /**
  * Register service worker
  */
-if (process.env.NODE_ENV === 'development') {
-  unregister();
-} else {
-  registerServiceWorker();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   unregister();
+// } else {
+//   registerServiceWorker();
+// }

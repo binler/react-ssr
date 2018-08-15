@@ -1,9 +1,12 @@
 const sass = require('node-sass');
 const hook = require('css-modules-require-hook');
+const generateScopedName = require('../config/css');
 
 hook({
   extensions: '.scss',
-  generateScopedName: '[local]__[hash:base64:5]',
+  generateScopedName: (name, filepath) => {
+    return generateScopedName(name, filepath);
+  },
   preprocessCss: function (css, filepath) {
     const result = sass.renderSync({
       data: css

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 import styles from './styles.scss';
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
   render() {
     return (
       <div>

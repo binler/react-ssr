@@ -26,6 +26,26 @@ const User = Loadable({
  * @type {*[]}
  * actions must be an array, each item must be a function.
  * It's call to api that you want to pre-fetch on server side.
+ * @param(
+ *  name: path,
+ *  type: string,
+ * ),
+ * @param(
+ *  name: component,
+ *  type: React.Component,
+ * ),
+ * @param(
+ *  name: exact,
+ *  type: string,
+ * ),
+ * @param(
+ *  name: actions,
+ *  type: Array[<Redux-action>],
+ * ),
+ * @param(
+ *  name: bindRouteParamsToAction,
+ *  type: Array[<boolean>]
+ * ),
  */
 const routesConfig = [
   {
