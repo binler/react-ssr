@@ -20,12 +20,12 @@ Build server: `yarn run server:prod`
 
 ## Feature
 
-- Server side rendering.
-- Redux, redux saga.
-- Code splitting.
-- CSS module (scss).
-- Progressive web app.
-- Unit testing.
+- [X] Server side rendering.
+- [X] Redux, redux saga.
+- [X] Code splitting.
+- [X] CSS module (scss).
+- [X] Progressive web app.
+- [X] Unit testing.
 
 ## License
 MIT
