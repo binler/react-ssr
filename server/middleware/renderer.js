@@ -3,10 +3,11 @@ import ReactDOMServer from 'react-dom/server';
 import {ConnectedRouter} from 'react-router-redux';
 import {matchRoutes} from 'react-router-config';
 import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack';
 import {Provider} from 'react-redux';
 import {store} from "../../src/redux/store";
 import ServerRouter from "../../src/routes/server";
-import manifest from '../../build/static/asset-manifest.json';
+import manifest from '../../build/react-loadable.json';
 import sagas from '../../src/redux/sagas/index';
 import {routesConfig} from "../../src/routes/config";
 import {Helmet} from 'react-helmet';
@@ -47,11 +48,9 @@ export default (req, res) => {
       );
       const helmet = Helmet.renderStatic();
       const headMarkup = `${helmet.title.toString()}${helmet.meta.toString()}`;
-      const extractAssets = (assets, chunks) => Object.keys(assets)
-        .filter(asset => chunks.indexOf(asset.replace('.js', '')) > -1)
-        .map(k => assets[k]);
-      const extraChunks = extractAssets(manifest, modules)
-        .map(c => `<script type="text/javascript" src="/${c}"></script>`);
+      const extraChunks = getBundles(manifest, modules)
+        .filter(bundle => bundle.file.endsWith('.js'))
+        .map(c => `<script type="text/javascript" src="${c.publicPath}"></script>`);
       const response = htmlData
         .replace(
           '<head>',

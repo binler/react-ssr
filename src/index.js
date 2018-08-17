@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import App from './routes/client';
 // import registerServiceWorker, { unregister } from './registerServiceWorker';
 
-Loadable.preloadReady().then(() => {
+window.onload = () => Loadable.preloadReady().then(() => {
   (!!module.hot ? render : hydrate)(<App />, document.getElementById('root'));
 });
 

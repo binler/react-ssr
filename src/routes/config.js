@@ -13,12 +13,12 @@ import {getUser} from "../pages/User/user.actions";
 const Home = Loadable({
   loader: () => import(/* webpackChunkName: "home" */ '../pages/Home/index'),
   loading: () => <Loading />,
-  modules: ['home']
+  modules: ['../pages/Home/index']
 });
 const User = Loadable({
   loader: () => import(/* webpackChunkName: "user" */ '../pages/User/index'),
   loading: () => <Loading />,
-  modules: ['user']
+  modules: ['../pages/User/index']
 });
 
 /**
