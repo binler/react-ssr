@@ -1,5 +1,4 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {getUser} from "./user.actions";
@@ -14,7 +13,6 @@ const mapDispatchToProps = dispatch => ({
   getData: bindActionCreators(getUser, dispatch),
 });
 
-@withRouter
 @connect(
   mapStateToProps,
   mapDispatchToProps
